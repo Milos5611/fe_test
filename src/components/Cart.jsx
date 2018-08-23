@@ -29,13 +29,13 @@ class Cart extends React.Component {
           quantity:
             method === 'add'
               ? this.state.cart[productId].quantity + 1
-              : this.state.cart[productId].quantity - 1,
+              : this.state.cart[productId].quantity !== 0 ?  this.state.cart[productId].quantity - 1 : 0
         },
       },
     });
 
   getCartTotal = () => {
-    const prices = Object.values(this.state.cart).map(cartItem => cartItem.product.price);
+    const prices = Object.values(this.state.cart).map(cartItem => (cartItem.product.price * cartItem.quantity));
     return prices.reduce((sum, value) => sum + value, 0);
   };
 
